@@ -130,4 +130,138 @@ struct EndpointTests {
         #expect(request.url?.host == "staging.example.com")
         #expect(request.url?.path == "/health")
     }
+
+    // MARK: - PUT method
+
+    @Test("PUT serialises parameters into JSON body and sets correct HTTP method")
+    func putEndpointBodyEncoding() throws {
+        let endpoint = TestEndpoint(
+            path: "/users/42",
+            method: .put,
+            parameters: ["name": "Updated Name"]
+        )
+        let request = try endpoint.asURLRequest()
+        let body = try #require(request.httpBody)
+        let decoded = try JSONSerialization.jsonObject(with: body) as? [String: String]
+
+        #expect(request.httpMethod == "PUT")
+        #expect(decoded?["name"] == "Updated Name")
+        #expect(request.url?.query == nil)
+    }
+
+    @Test("PUT with nil parameters produces no body")
+    func putEndpointNilParameters() throws {
+        let endpoint = TestEndpoint(path: "/users/42", method: .put, parameters: nil)
+        let request = try endpoint.asURLRequest()
+        #expect(request.httpMethod == "PUT")
+        #expect(request.httpBody == nil)
+    }
+
+    // MARK: - DELETE method
+
+    @Test("DELETE with parameters serialises body and sets correct HTTP method")
+    func deleteEndpointBodyEncoding() throws {
+        let endpoint = TestEndpoint(
+            path: "/items/99",
+            method: .delete,
+            parameters: ["confirm": true]
+        )
+        let request = try endpoint.asURLRequest()
+        let body = try #require(request.httpBody)
+        let decoded = try JSONSerialization.jsonObject(with: body) as? [String: Bool]
+
+        #expect(request.httpMethod == "DELETE")
+        #expect(decoded?["confirm"] == true)
+        #expect(request.url?.query == nil)
+    }
+
+    @Test("DELETE with nil parameters produces no body and no query")
+    func deleteEndpointNilParameters() throws {
+        let endpoint = TestEndpoint(path: "/items/99", method: .delete, parameters: nil)
+        let request = try endpoint.asURLRequest()
+        #expect(request.httpMethod == "DELETE")
+        #expect(request.httpBody == nil)
+        #expect(request.url?.query == nil)
+    }
+
+    // MARK: - GET with nil parameters
+
+    @Test("GET with nil parameters produces no query items")
+    func getEndpointNilParametersNoQuery() throws {
+        let endpoint = TestEndpoint(path: "/users", method: .get, parameters: nil)
+        let request = try endpoint.asURLRequest()
+        let url = try #require(request.url)
+        let components = try #require(URLComponents(url: url, resolvingAgainstBaseURL: false))
+        #expect(components.queryItems == nil)
+        #expect(request.httpBody == nil)
+    }
+
+    // MARK: - Custom content type
+
+    @Test("formURLEncoded contentType is reflected in Content-Type header")
+    func formURLEncodedContentTypeHeader() throws {
+        struct FormEndpoint: Endpoint {
+            var path = "/login"
+            var method: HTTPMethod = .post
+            var parameters: [String: Any]? = nil
+            var contentType: ContentType { .formURLEncoded }
+        }
+        let request = try FormEndpoint().asURLRequest()
+        #expect(request.value(forHTTPHeaderField: "Content-Type") == "application/x-www-form-urlencoded")
+    }
+
+    @Test("multipart contentType is reflected in Content-Type header")
+    func multipartContentTypeHeader() throws {
+        struct UploadEndpoint: Endpoint {
+            var path = "/upload"
+            var method: HTTPMethod = .post
+            var parameters: [String: Any]? = nil
+            var contentType: ContentType { .multipart }
+        }
+        let request = try UploadEndpoint().asURLRequest()
+        #expect(request.value(forHTTPHeaderField: "Content-Type") == "multipart/form-data")
+    }
+
+    // MARK: - Custom headers
+
+    @Test("Custom headers override defaults and are present in URLRequest")
+    func customHeadersAreApplied() throws {
+        struct AuthEndpoint: Endpoint {
+            var path = "/protected"
+            var method: HTTPMethod = .get
+            var parameters: [String: Any]? = nil
+            var headers: [String: String] {
+                ["Authorization": "Bearer token123", "X-Custom-Header": "value"]
+            }
+        }
+        let request = try AuthEndpoint().asURLRequest()
+        #expect(request.value(forHTTPHeaderField: "Authorization") == "Bearer token123")
+        #expect(request.value(forHTTPHeaderField: "X-Custom-Header") == "value")
+    }
+
+    // MARK: - URL construction
+
+    @Test("Path with no leading slash is still appended correctly")
+    func pathWithoutLeadingSlash() throws {
+        let endpoint = TestEndpoint(path: "noSlash", method: .get, parameters: nil)
+        let request = try endpoint.asURLRequest()
+        let path = try #require(request.url?.path)
+        #expect(path.hasSuffix("noSlash"))
+    }
+
+    @Test("POST with multiple parameters all serialised into body")
+    func postMultipleParameters() throws {
+        let endpoint = TestEndpoint(
+            path: "/register",
+            method: .post,
+            parameters: ["username": "alice", "age": 30, "active": true]
+        )
+        let request = try endpoint.asURLRequest()
+        let body = try #require(request.httpBody)
+        let decoded = try JSONSerialization.jsonObject(with: body) as? [String: Any]
+
+        #expect(decoded?["username"] as? String == "alice")
+        #expect(decoded?["age"] as? Int == 30)
+        #expect(decoded?["active"] as? Bool == true)
+    }
 }
