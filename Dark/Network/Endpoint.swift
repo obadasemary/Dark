@@ -53,9 +53,48 @@ extension Endpoint {
             request.setValue(value, forHTTPHeaderField: key)
         }
 
-        // non-GET: serialize parameters as a JSON body.
+        // non-GET: serialize parameters according to the declared contentType.
         if method != .get, let params = parameters {
-            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+            switch contentType {
+            case .json:
+                request.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+
+            case .formURLEncoded:
+                // Percent-encode keys and values, excluding characters that carry
+                // structural meaning in an application/x-www-form-urlencoded body.
+                var allowed = CharacterSet.urlQueryAllowed
+                allowed.remove(charactersIn: "+&=")
+                let bodyString = params
+                    .map { key, value -> String in
+                        let k = key.addingPercentEncoding(withAllowedCharacters: allowed) ?? key
+                        let v = "\(value)".addingPercentEncoding(withAllowedCharacters: allowed) ?? "\(value)"
+                        return "\(k)=\(v)"
+                    }
+                    .joined(separator: "&")
+                request.httpBody = bodyString.data(using: .utf8)
+
+            case .multipart:
+                let boundary = "Boundary-\(UUID().uuidString)"
+                var body = Data()
+                for (key, value) in params {
+                    body.append(contentsOf: "--\(boundary)\r\n".utf8)
+                    if let data = value as? Data {
+                        // Binary / file part.
+                        body.append(contentsOf: "Content-Disposition: form-data; name=\"\(key)\"; filename=\"\(key)\"\r\n".utf8)
+                        body.append(contentsOf: "Content-Type: application/octet-stream\r\n\r\n".utf8)
+                        body.append(data)
+                        body.append(contentsOf: "\r\n".utf8)
+                    } else {
+                        // Plain text part.
+                        body.append(contentsOf: "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8)
+                        body.append(contentsOf: "\(value)\r\n".utf8)
+                    }
+                }
+                body.append(contentsOf: "--\(boundary)--\r\n".utf8)
+                request.httpBody = body
+                // The boundary must be included in the Content-Type header value.
+                request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            }
         }
 
         return request
