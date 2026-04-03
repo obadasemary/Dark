@@ -95,7 +95,9 @@ timeline.xctimeline
 playground.xcworkspace
 
 # Swift Package Manager
-# Package.resolved
+.build/
+.swiftpm/
+# Package.resolved is intentionally tracked to pin dependency versions
 
 ### Claude Code
 # Local machine-specific permissions (not shared)
