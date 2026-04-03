@@ -19,5 +19,10 @@ let package = Package(
             name: "DarkNetwork",
             path: "Sources/DarkNetwork"
         ),
+        .testTarget(
+            name: "DarkNetworkTests",
+            dependencies: ["DarkNetwork"],
+            path: "Tests/DarkNetworkTests"
+        ),
     ]
 )
