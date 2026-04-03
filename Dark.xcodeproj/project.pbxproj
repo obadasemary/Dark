@@ -23,6 +23,11 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXBuildFile section */
+		AF44444400000000AAAAAAAA /* DarkNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = AF22222200000000AAAAAAAA /* DarkNetwork */; };
+		AF55555500000000AAAAAAAA /* DarkNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = AF33333300000000AAAAAAAA /* DarkNetwork */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		AF02B14E2F7E55940010FC61 /* Dark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF02B15B2F7E55950010FC61 /* DarkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DarkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF44444400000000AAAAAAAA /* DarkNetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF55555500000000AAAAAAAA /* DarkNetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,7 @@
 			);
 			name = Dark;
 			packageProductDependencies = (
+				AF22222200000000AAAAAAAA /* DarkNetwork */,
 			);
 			productName = Dark;
 			productReference = AF02B14E2F7E55940010FC61 /* Dark.app */;
@@ -135,6 +143,7 @@
 			);
 			name = DarkTests;
 			packageProductDependencies = (
+				AF33333300000000AAAAAAAA /* DarkNetwork */,
 			);
 			productName = DarkTests;
 			productReference = AF02B15B2F7E55950010FC61 /* DarkTests.xctest */;
@@ -195,6 +204,9 @@
 			);
 			mainGroup = AF02B1452F7E55940010FC61;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				AF11111100000000AAAAAAAA /* XCLocalSwiftPackageReference "Packages/DarkNetwork" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AF02B14F2F7E55940010FC61 /* Products */;
 			projectDirPath = "";
@@ -615,6 +627,26 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		AF11111100000000AAAAAAAA /* XCLocalSwiftPackageReference "Packages/DarkNetwork" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/DarkNetwork;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AF22222200000000AAAAAAAA /* DarkNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF11111100000000AAAAAAAA /* XCLocalSwiftPackageReference "Packages/DarkNetwork" */;
+			productName = DarkNetwork;
+		};
+		AF33333300000000AAAAAAAA /* DarkNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF11111100000000AAAAAAAA /* XCLocalSwiftPackageReference "Packages/DarkNetwork" */;
+			productName = DarkNetwork;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AF02B1462F7E55940010FC61 /* Project object */;
 }
