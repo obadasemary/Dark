@@ -1,6 +1,6 @@
 // DarkTests/NetworkTests/HTTPMethodTests.swift
 import Testing
-@testable import Dark
+import DarkNetwork
 
 @Suite("HTTPMethod")
 struct HTTPMethodTests {
