@@ -1,6 +1,6 @@
 // DarkTests/NetworkTests/MockHTTPTransport.swift
 import Foundation
-@testable import Dark
+import DarkNetwork
 
 /// A configurable stub conforming to `HTTPTransport`.
 /// Inject into `URLSessionNetworkClient(transport:)` in tests.
