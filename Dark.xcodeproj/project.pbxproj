@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AFCFBC142F829E9900E2758C /* DarkNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = AFCFBC132F829E9900E2758C /* DarkNetwork */; };
+		AF44444400000000AAAAAAAA /* DarkNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = AF22222200000000AAAAAAAA /* DarkNetwork */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,11 +26,6 @@
 			remoteInfo = Dark;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXBuildFile section */
-		AF44444400000000AAAAAAAA /* DarkNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = AF22222200000000AAAAAAAA /* DarkNetwork */; };
-		AF55555500000000AAAAAAAA /* DarkNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = AF33333300000000AAAAAAAA /* DarkNetwork */; };
-/* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AF02B14E2F7E55940010FC61 /* Dark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dark.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +64,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF55555500000000AAAAAAAA /* DarkNetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,7 +149,6 @@
 			);
 			name = DarkTests;
 			packageProductDependencies = (
-				AF33333300000000AAAAAAAA /* DarkNetwork */,
 			);
 			productName = DarkTests;
 			productReference = AF02B15B2F7E55950010FC61 /* DarkTests.xctest */;
@@ -649,11 +642,6 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		AF22222200000000AAAAAAAA /* DarkNetwork */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AF11111100000000AAAAAAAA /* XCLocalSwiftPackageReference "Packages/DarkNetwork" */;
-			productName = DarkNetwork;
-		};
-		AF33333300000000AAAAAAAA /* DarkNetwork */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AF11111100000000AAAAAAAA /* XCLocalSwiftPackageReference "Packages/DarkNetwork" */;
 			productName = DarkNetwork;
