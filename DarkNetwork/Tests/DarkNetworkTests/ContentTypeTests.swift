@@ -1,6 +1,6 @@
 // Tests/DarkNetworkTests/ContentTypeTests.swift
 import Testing
-@testable import DarkNetwork
+import DarkNetwork
 
 @Suite("ContentType")
 struct ContentTypeTests {
