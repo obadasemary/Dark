@@ -90,6 +90,11 @@ struct NetworkErrorTests {
         #expect(NetworkError.requestFailed(statusCode: Int.max) == NetworkError.requestFailed(statusCode: Int.max))
     }
 
+    @Test("requestFailed equality holds at negative status code")
+    func requestFailedNegativeStatusCode() {
+        #expect(NetworkError.requestFailed(statusCode: -1) == NetworkError.requestFailed(statusCode: -1))
+    }
+
     // MARK: - Conforms to Error
 
     @Test("NetworkError conforms to Error protocol")
