@@ -5,6 +5,6 @@
       location = "group:Dark.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:DarkNetwork">
+      location = "group:Packages/DarkNetwork">
    </FileRef>
 </Workspace>
