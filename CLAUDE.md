@@ -9,19 +9,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 xcodebuild -scheme Dark -configuration Debug build
 
 # Run all tests
-xcodebuild -scheme Dark -destination 'platform=iOS Simulator,name=iPhone 16' test
+xcodebuild -scheme Dark -destination 'platform=iOS Simulator,name=iPhone 17' test
 
 # Run unit tests only
-xcodebuild -scheme DarkTests -destination 'platform=iOS Simulator,name=iPhone 16' test
+xcodebuild -scheme DarkTests -destination 'platform=iOS Simulator,name=iPhone 17' test
 
 # Run UI tests only
-xcodebuild -scheme DarkUITests -destination 'platform=iOS Simulator,name=iPhone 16' test
+xcodebuild -scheme DarkUITests -destination 'platform=iOS Simulator,name=iPhone 17' test
 
 # Run a specific test suite
-xcodebuild -scheme DarkTests -destination 'platform=iOS Simulator,name=iPhone 16' test -only-testing:DarkTests/NetworkClientTests
+xcodebuild -scheme DarkTests -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:DarkTests/NetworkClientTests
 
 # Run a single test by name
-xcodebuild -scheme DarkTests -destination 'platform=iOS Simulator,name=iPhone 16' test -only-testing:DarkTests/NetworkClientTests/successfulDecode
+xcodebuild -scheme DarkTests -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:DarkTests/NetworkClientTests/successfulDecode
 
 # Clean
 xcodebuild clean -scheme Dark
