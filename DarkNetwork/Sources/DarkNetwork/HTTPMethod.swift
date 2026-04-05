@@ -1,6 +1,6 @@
-// Dark/Network/HTTPMethod.swift
+// Sources/DarkNetwork/HTTPMethod.swift
 
-enum HTTPMethod: String {
+public enum HTTPMethod: String {
     case get    = "GET"
     case post   = "POST"
     case put    = "PUT"

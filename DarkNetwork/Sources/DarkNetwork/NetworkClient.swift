@@ -1,11 +1,11 @@
-// Dark/Network/NetworkClient.swift
+// Sources/DarkNetwork/NetworkClient.swift
 import Foundation
 
 // MARK: - HTTPTransport
 
 /// Low-level seam over URLSession.
 /// Conform a mock struct to this protocol in tests — no URLProtocol subclassing needed.
-protocol HTTPTransport: Sendable {
+public protocol HTTPTransport: Sendable {
     func data(for request: URLRequest) async throws -> (Data, URLResponse)
 }
 
@@ -16,7 +16,7 @@ extension URLSession: HTTPTransport {}
 
 /// The abstraction that features and ViewModels depend on.
 /// Use `any NetworkClient` at injection sites for full DI flexibility.
-protocol NetworkClient {
+public protocol NetworkClient {
     func request<T: Decodable>(
         endpoint: some Endpoint,
         response: T.Type
@@ -32,7 +32,7 @@ protocol NetworkClient {
 /// let client: any NetworkClient = URLSessionNetworkClient()
 /// let user = try await client.request(endpoint: UsersEndpoint.fetchUser(id: 1), response: User.self)
 /// ```
-struct URLSessionNetworkClient: NetworkClient {
+public struct URLSessionNetworkClient: NetworkClient {
 
     private let transport: any HTTPTransport
     private let decoder: JSONDecoder
@@ -41,7 +41,7 @@ struct URLSessionNetworkClient: NetworkClient {
     ///   - transport: Defaults to `URLSession.shared`. Inject a `MockHTTPTransport` in tests.
     ///   - decoder: Defaults to a plain `JSONDecoder`. Inject a custom one to set
     ///              `keyDecodingStrategy`, `dateDecodingStrategy`, etc.
-    init(
+    public init(
         transport: any HTTPTransport = URLSession.shared,
         decoder: JSONDecoder = JSONDecoder()
     ) {
@@ -49,7 +49,7 @@ struct URLSessionNetworkClient: NetworkClient {
         self.decoder = decoder
     }
 
-    func request<T: Decodable>(
+    public func request<T: Decodable>(
         endpoint: some Endpoint,
         response: T.Type
     ) async throws -> T {

@@ -1,7 +1,7 @@
-// DarkTests/NetworkTests/NetworkErrorTests.swift
+// Tests/DarkNetworkTests/NetworkErrorTests.swift
 import Testing
 import Foundation
-@testable import Dark
+@testable import DarkNetwork
 
 @Suite("NetworkError")
 struct NetworkErrorTests {
