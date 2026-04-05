@@ -1,7 +1,7 @@
-// DarkTests/NetworkTests/NetworkClientTests.swift
+// Tests/DarkNetworkTests/NetworkClientTests.swift
 import Testing
 import Foundation
-@testable import Dark
+@testable import DarkNetwork
 
 // Shared test model
 private struct User: Codable, Equatable {

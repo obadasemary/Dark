@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AFCFBC142F829E9900E2758C /* DarkNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = AFCFBC132F829E9900E2758C /* DarkNetwork */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		AF02B15C2F7E55950010FC61 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFCFBC142F829E9900E2758C /* DarkNetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 				AF02B1502F7E55940010FC61 /* Dark */,
 				AF02B15E2F7E55950010FC61 /* DarkTests */,
 				AF02B1682F7E55950010FC61 /* DarkUITests */,
+				AFCFBC122F829E9900E2758C /* Frameworks */,
 				AF02B14F2F7E55940010FC61 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +96,13 @@
 				AF02B1652F7E55950010FC61 /* DarkUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AFCFBC122F829E9900E2758C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +125,7 @@
 			);
 			name = Dark;
 			packageProductDependencies = (
+				AFCFBC132F829E9900E2758C /* DarkNetwork */,
 			);
 			productName = Dark;
 			productReference = AF02B14E2F7E55940010FC61 /* Dark.app */;
@@ -195,6 +209,8 @@
 			);
 			mainGroup = AF02B1452F7E55940010FC61;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AF02B14F2F7E55940010FC61 /* Products */;
 			projectDirPath = "";
@@ -615,6 +631,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AFCFBC132F829E9900E2758C /* DarkNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DarkNetwork;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AF02B1462F7E55940010FC61 /* Project object */;
 }
