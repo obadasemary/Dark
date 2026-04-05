@@ -1,7 +1,7 @@
-// DarkTests/NetworkTests/EndpointTests.swift
+// Tests/DarkNetworkTests/EndpointTests.swift
 import Testing
 import Foundation
-@testable import Dark
+@testable import DarkNetwork
 
 // Minimal concrete Endpoint used only in this test file.
 private struct TestEndpoint: Endpoint {

@@ -1,7 +1,7 @@
-// Dark/Network/Endpoint.swift
+// Sources/DarkNetwork/Endpoint.swift
 import Foundation
 
-protocol Endpoint {
+public protocol Endpoint {
     var baseURL: URL { get }
     var path: String { get }
     var method: HTTPMethod { get }
@@ -10,7 +10,7 @@ protocol Endpoint {
     var contentType: ContentType { get }
 }
 
-extension Endpoint {
+public extension Endpoint {
 
     /// Default base URL — override per endpoint or per API group.
     var baseURL: URL {

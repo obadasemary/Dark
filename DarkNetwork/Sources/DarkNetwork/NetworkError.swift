@@ -1,7 +1,7 @@
-// Dark/Network/NetworkError.swift
+// Sources/DarkNetwork/NetworkError.swift
 import Foundation
 
-enum NetworkError: Error, Equatable {
+public enum NetworkError: Error, Equatable {
     case invalidURL
     case requestFailed(statusCode: Int)
     case noData
@@ -10,7 +10,7 @@ enum NetworkError: Error, Equatable {
 
     // Manual Equatable: `Error` does not conform to `Equatable`,
     // so decodingFailed and unknown use type-level equality.
-    static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
+    public static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
         switch (lhs, rhs) {
         case (.invalidURL, .invalidURL):
             return true
