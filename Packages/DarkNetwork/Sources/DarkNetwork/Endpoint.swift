@@ -41,7 +41,7 @@ extension Endpoint {
 
         // GET: encode parameters as URL query items.
         if method == .get, let params = parameters {
-            components?.queryItems = params.map { key, value in
+            components?.queryItems = params.sorted { $0.key < $1.key }.map { key, value in
                 URLQueryItem(name: key, value: "\(value)")
             }
         }
