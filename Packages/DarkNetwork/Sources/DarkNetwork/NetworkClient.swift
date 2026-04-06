@@ -16,7 +16,7 @@ extension URLSession: HTTPTransport {}
 
 /// The abstraction that features and ViewModels depend on.
 /// Use `any NetworkClient` at injection sites for full DI flexibility.
-public protocol NetworkClient {
+public protocol NetworkClient: Sendable {
     func request<T: Decodable>(
         endpoint: some Endpoint,
         response: T.Type
