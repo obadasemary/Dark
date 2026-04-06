@@ -1,7 +1,8 @@
 // DarkNetwork/NetworkError.swift
 import Foundation
 
-public enum NetworkError: Error, Equatable {
+public enum NetworkError: Error, Equatable, @unchecked Sendable {
+    
     case invalidURL
     case requestFailed(statusCode: Int)
     case noData
