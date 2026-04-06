@@ -4,7 +4,7 @@ import DarkNetwork
 
 /// A configurable stub conforming to `HTTPTransport`.
 /// Inject into `URLSessionNetworkClient(transport:)` in tests.
-struct MockHTTPTransport: HTTPTransport {
+struct MockHTTPTransport: HTTPTransport, Sendable {
 
     /// Closure executed when `data(for:)` is called.
     /// Set this to control what the mock returns or throws.
