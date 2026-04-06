@@ -32,7 +32,7 @@ public protocol NetworkClient {
 /// let client: any NetworkClient = URLSessionNetworkClient()
 /// let user = try await client.request(endpoint: UsersEndpoint.fetchUser(id: 1), response: User.self)
 /// ```
-public struct URLSessionNetworkClient: NetworkClient {
+public struct URLSessionNetworkClient: NetworkClient, @unchecked Sendable {
 
     private let transport: any HTTPTransport
     private let decoder: JSONDecoder
