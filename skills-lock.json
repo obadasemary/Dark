@@ -1,6 +1,16 @@
 {
   "version": 1,
   "skills": {
+    "core-data-expert": {
+      "source": "avdlee/core-data-agent-skill",
+      "sourceType": "github",
+      "computedHash": "b8d2829005b1f2fefbaa8af2ea7d7d64e2fbeca2f2172033176ad0780edc3970"
+    },
+    "ios-clean-architecture": {
+      "source": "Obadasemary/ios-clean-architecture-skill",
+      "sourceType": "github",
+      "computedHash": "4f290057eeb767f4affe8054ab0c3949a97f942988dc926f80737868f67b2c55"
+    },
     "swift-concurrency": {
       "source": "avdlee/swift-concurrency-agent-skill",
       "sourceType": "github",
