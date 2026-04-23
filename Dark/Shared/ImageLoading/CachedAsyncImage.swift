@@ -7,9 +7,10 @@ private typealias PlatformImage = UIImage
 #elseif canImport(AppKit)
 import AppKit
 private typealias PlatformImage = NSImage
+#else
+#error("CachedAsyncImage requires UIKit or AppKit")
 #endif
 
-@MainActor
 @Observable
 final class CachedImageLoader {
     enum Phase {
@@ -99,6 +100,8 @@ private extension Image {
         self.init(uiImage: platformImage)
         #elseif canImport(AppKit)
         self.init(nsImage: platformImage)
+        #else
+        #error("CachedAsyncImage requires UIKit or AppKit")
         #endif
     }
 }
