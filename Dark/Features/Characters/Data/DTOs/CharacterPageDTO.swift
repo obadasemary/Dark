@@ -22,19 +22,14 @@ struct CharacterDTO: Decodable, Sendable {
     let name: String
     let status: String
     let species: String
-    let type: String
     let gender: String
     let origin: LocationDTO
     let location: LocationDTO
     let image: String
-    let episode: [String]
-    let url: String
-    let created: String
 }
 
 struct LocationDTO: Decodable, Sendable {
     let name: String
-    let url: String
 }
 
 // MARK: - Domain mapping
