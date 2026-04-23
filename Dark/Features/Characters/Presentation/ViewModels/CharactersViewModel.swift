@@ -45,7 +45,7 @@ final class CharactersViewModel {
         guard let index = characters.firstIndex(where: { $0.id == character.id }) else { return }
         let triggerIndex = max(0, characters.count - prefetchThreshold)
         guard index >= triggerIndex else { return }
-        Task { await fetchNextPage() }
+        Task { [weak self] in await self?.fetchNextPage() }
     }
 
     func retry() async {
