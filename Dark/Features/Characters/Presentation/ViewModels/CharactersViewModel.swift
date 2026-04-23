@@ -38,33 +38,40 @@ final class CharactersViewModel {
 
     /// Called each time a row becomes visible.
     /// Starts the next fetch when the visible item is within `prefetchThreshold` of the end.
-    func onItemAppear(_ character: Character) async {
+    /// Fire-and-forget so the fetch outlives the row's `.onAppear` scope and isn't
+    /// cancelled when the user scrolls past the trigger row.
+    func onItemAppear(_ character: Character) {
         guard hasNextPage, !isLoading else { return }
         guard let index = characters.firstIndex(where: { $0.id == character.id }) else { return }
         let triggerIndex = max(0, characters.count - prefetchThreshold)
         guard index >= triggerIndex else { return }
-        await fetchNextPage()
+        Task { [weak self] in await self?.fetchNextPage() }
     }
 
     func retry() async {
-        errorMessage = nil
         await fetchNextPage()
     }
 
     // MARK: - Private
 
     private func fetchNextPage() async {
+        guard !isLoading, hasNextPage else { return }
         isLoading = true
         errorMessage = nil
+        defer { isLoading = false }
+
         let nextPage = currentPage + 1
         do {
             let page = try await useCase.execute(page: nextPage)
             characters += page.characters
             currentPage = page.currentPage
             hasNextPage = page.hasNextPage
+        } catch is CancellationError {
+            return
+        } catch let error as URLError where error.code == .cancelled {
+            return
         } catch {
             errorMessage = error.localizedDescription
         }
-        isLoading = false
     }
 }

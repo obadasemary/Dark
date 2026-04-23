@@ -50,14 +50,9 @@ actor ImageDataCache {
         inFlightRequests[url] = task
         defer { inFlightRequests[url] = nil }
 
-        do {
-            let data = try await task.value
-            storage.setObject(data as NSData, forKey: url as NSURL, cost: data.count)
-            return data
-        } catch {
-            task.cancel()
-            throw error
-        }
+        let data = try await task.value
+        storage.setObject(data as NSData, forKey: url as NSURL, cost: data.count)
+        return data
     }
 
     func removeAll() {
