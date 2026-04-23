@@ -19,7 +19,7 @@ enum CharacterStatus: String, Sendable, CaseIterable {
 
 // MARK: - Domain models
 
-struct Character: Identifiable, Sendable {
+struct Character: Identifiable, Equatable, Sendable {
     let id: Int
     let name: String
     let status: CharacterStatus
