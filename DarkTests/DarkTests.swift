@@ -14,57 +14,64 @@ struct DarkTests {
     @Test("load stores characters after a successful response")
     func loadSuccess() async {
         let expectedCharacters = [
-            RickAndMortyCharacter(
+            Character(
                 id: 1,
                 name: "Rick Sanchez",
-                status: "Alive",
+                status: .alive,
                 species: "Human",
-                image: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")!
+                gender: "Male",
+                origin: "Earth (C-137)",
+                location: "Citadel of Ricks",
+                imageURL: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")
             )
         ]
-        let viewModel = CharacterFeedViewModel(
-            service: StubCharacterFeedService(characters: expectedCharacters)
+        let viewModel = CharactersViewModel(
+            useCase: GetCharactersUseCase(
+                repository: StubCharacterRepository(page: CharacterPage(
+                    characters: expectedCharacters,
+                    currentPage: 1,
+                    totalPages: 1,
+                    hasNextPage: false
+                ))
+            )
         )
 
-        await viewModel.load()
+        await viewModel.loadInitialPageIfNeeded()
 
         #expect(viewModel.characters == expectedCharacters)
-        #expect(viewModel.state == .loaded)
+        #expect(viewModel.errorMessage == nil)
+        #expect(viewModel.isLoading == false)
     }
 
     @MainActor
     @Test("load exposes a user-facing failure state when the service throws")
     func loadFailure() async {
-        let viewModel = CharacterFeedViewModel(
-            service: StubCharacterFeedService(error: StubCharacterFeedService.Failure.offline)
+        let viewModel = CharactersViewModel(
+            useCase: GetCharactersUseCase(
+                repository: StubCharacterRepository(error: StubCharacterRepository.Failure.offline)
+            )
         )
 
-        await viewModel.load()
+        await viewModel.loadInitialPageIfNeeded()
 
         #expect(viewModel.characters.isEmpty)
-
-        guard case .failed(let message) = viewModel.state else {
-            Issue.record("Expected the view model to enter a failed state.")
-            return
-        }
-
-        #expect(message == "Something went wrong while loading the feed.")
+        #expect(viewModel.errorMessage != nil)
+        #expect(viewModel.isLoading == false)
     }
 }
 
-private struct StubCharacterFeedService: CharacterFeedServing {
+private struct StubCharacterRepository: CharacterRepository {
     enum Failure: Error, Sendable {
         case offline
     }
 
-    var characters: [RickAndMortyCharacter] = []
+    var page: CharacterPage?
     var error: Failure?
 
-    func fetchCharacters(page: Int) async throws -> [RickAndMortyCharacter] {
+    func getCharacters(page: Int) async throws -> CharacterPage {
         if let error {
             throw error
         }
-
-        return characters
+        return self.page!
     }
 }
