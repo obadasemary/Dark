@@ -56,6 +56,7 @@ struct DarkTests {
 
         #expect(viewModel.characters.isEmpty)
         #expect(viewModel.errorMessage == StubCharacterRepository.Failure.offline.errorDescription)
+        #expect(viewModel.errorMessage == "You appear to be offline.")
         #expect(viewModel.isLoading == false)
     }
 }
