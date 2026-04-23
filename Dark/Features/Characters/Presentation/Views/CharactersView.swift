@@ -29,10 +29,8 @@ struct CharactersView: View {
         List {
             ForEach(viewModel.characters) { character in
                 CharacterRow(character: character)
-                    .task {
-                        // .task is cancelled automatically when the row disappears,
-                        // preventing stale triggers from off-screen rows.
-                        await viewModel.onItemAppear(character)
+                    .onAppear {
+                        viewModel.onItemAppear(character)
                     }
             }
             paginationFooter

@@ -55,14 +55,21 @@ struct DarkTests {
         await viewModel.loadInitialPageIfNeeded()
 
         #expect(viewModel.characters.isEmpty)
-        #expect(viewModel.errorMessage != nil)
+        #expect(viewModel.errorMessage == StubCharacterRepository.Failure.offline.errorDescription)
         #expect(viewModel.isLoading == false)
     }
 }
 
 private struct StubCharacterRepository: CharacterRepository {
-    enum Failure: Error, Sendable {
+    enum Failure: LocalizedError, Sendable {
         case offline
+
+        var errorDescription: String? {
+            switch self {
+            case .offline:
+                return "You appear to be offline."
+            }
+        }
     }
 
     var page: CharacterPage?

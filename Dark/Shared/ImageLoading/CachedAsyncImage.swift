@@ -38,7 +38,9 @@ final class CachedImageLoader {
         do {
             let data = try await cache.data(for: url)
 
-            guard !Task.isCancelled, let platformImage = PlatformImage(data: data) else {
+            guard !Task.isCancelled else { return }
+            guard let platformImage = PlatformImage(data: data) else {
+                phase = .failure
                 return
             }
 
